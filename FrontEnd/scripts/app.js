@@ -45,6 +45,7 @@ const fetchWorks = async function (){
     }
 
 
+
     //Create an array of the HTMLcollection of ctageories buttons of the DOM   
     let arrCategoriesEl = Array.from(categoryEl);
     //for every click of the button change the active class and filter the categories in the gallery
@@ -61,11 +62,10 @@ const fetchWorks = async function (){
         //show the filtered data to the dom
         (btn.id.slice(-1)==0) ? generateWork(works) : gallery.innerHTML='' ;
         generateWork(worksFiltered);
+
     }));
 
-}.catch(function(err) {
-    console.log(err);
-  });
+}
 
 fetchWorks();
 
