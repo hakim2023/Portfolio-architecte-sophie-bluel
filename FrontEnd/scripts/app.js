@@ -60,9 +60,11 @@ const fetchWorks = async function (){
             return work.categoryId === +btn.id.slice(-1);   
         });   
         //show the filtered data to the dom
-        (btn.id.slice(-1)==0) ? generateWork(works) : gallery.innerHTML='' ;
+        gallery.innerHTML='' ;
         generateWork(worksFiltered);
-
+            
+        if(btn.id.slice(-1)==0) generateWork(works);
+        
     }));
 
 }
