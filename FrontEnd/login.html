@@ -7,6 +7,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
@@ -26,7 +27,7 @@
 
 	<section class="login--section " id="login--section">
 	 <h2>Login</h2>
-    <form class='login--form' action="" method="post">
+    <form class='login--form' cross-origin='anonymous' >
 		<div>
 			<label for="email">E-mail</label>
 			<input type="email" id="email-login" name="email-login">
@@ -37,6 +38,7 @@
 	    </div>
 		<br>
 		<input type="submit" value="Se connecter">
+		<p></p>
 		<a href="#">Mot de passe oublié</a>
 	</form>
 	</section>
@@ -50,6 +52,6 @@
 		</ul>
 	</nav>
 </footer>
-<script src="./scripts/script.js"></script>
+<script  type ='module' src="./scripts/login.js"></script>
 </body>
 </html>

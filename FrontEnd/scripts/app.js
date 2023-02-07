@@ -1,8 +1,16 @@
+'use strict'
+
 const gallery = document.querySelector('.gallery');
 const categoriesEl = document.querySelector('.categories');
 const categoryEl = document.getElementsByClassName('category');
+const loginBtn = document.querySelector('#login');
+const modifyProfilePicBtn = document.querySelector('.modify--profile');
+const modifyProjectsBtn = document.querySelector('.modify--projects')
 //create an empty array that we'll psuh into category names from fetched works api 
 const arrCategories = [];
+
+let token = window.localStorage.getItem("token");
+let userId = window.localStorage.getItem("userId");
 
 
 // create an async function that fetch work api data from the url
@@ -31,8 +39,21 @@ const fetchWorks = async function (){
         }
     }
     // call the function to display the images on the gallery section
-    generateWork(works)
 
+    if (token) {
+        console.log('user connected');
+        console.log(userId);
+        generateWork(works)
+        const categoryEl = document.querySelector('.category');
+        categoryEl.classList.add('hide');
+        loginBtn.innerText='logout'
+        loginBtn.addEventListener('click',()=>  window.localStorage.removeItem("token"))
+        modifyProfilePicBtn.classList.remove('hide');
+        modifyProjectsBtn.classList.remove('hide')
+        
+      }else{
+      
+    generateWork(works)
     //Create an array of categories with no duplicates
     let arrCategoriesSet = [...new Set(arrCategories)]
     //Create a button from each unique category ( give it a className, an ID and innertext) and finally append it to the categories section
@@ -43,8 +64,6 @@ const fetchWorks = async function (){
         categoryBtn.id=`category-id-${key+1}`;
         categoriesEl.appendChild(categoryBtn);
     }
-
-
 
     //Create an array of the HTMLcollection of ctageories buttons of the DOM   
     let arrCategoriesEl = Array.from(categoryEl);
@@ -66,14 +85,11 @@ const fetchWorks = async function (){
         if(btn.id.slice(-1)==0) generateWork(works);
         
     }));
-
+}
 }
 
 fetchWorks();
 
 
 
-
-
- 
    

@@ -121,7 +121,19 @@ nav>ul>li>a{
 	display: block;
 	margin: auto;
 	width: 80%;
+	
 }
+.modify--profile,.modify--projects{
+
+	background-color: transparent;
+	border: 0px solid black;
+	display: flex;
+	gap: 10px;
+	padding: 20px 55px ;
+	cursor: pointer;
+	font-family: 'Syne';
+}
+
 
 #introduction article {
 	flex: 1
@@ -136,6 +148,11 @@ nav>ul>li>a{
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+}
+#portfolio>.projects{
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
 }
 .categories{
 	display: flex;
@@ -255,6 +272,11 @@ input[type="submit"]{
 .login--form>a{
 	align-self: center;
 	color: #000;
+}
+.login--form>p{
+	align-self: center;
+	color: red;
+	padding-bottom: 1rem;
 }
 
 footer nav ul {
