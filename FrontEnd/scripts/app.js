@@ -1,11 +1,14 @@
 'use strict'
 
+import { openCloseModel } from "./openCloseModal.js";
+
 const gallery = document.querySelector('.gallery');
 const categoriesEl = document.querySelector('.categories');
 const categoryEl = document.getElementsByClassName('category');
 const loginBtn = document.querySelector('#login');
 const modifyProfilePicBtn = document.querySelector('.modify--profile');
 const modifyProjectsBtn = document.querySelector('.modify--projects')
+const modifiedCardsContainerEl =  document.querySelector('.modified--cards--container');
 //create an empty array that we'll psuh into category names from fetched works api 
 const arrCategories = [];
 
@@ -20,7 +23,7 @@ const fetchWorks = async function (){
     const works = await response.json();
    // create a function that generate display into the DOM
     const generateWork = function(works){
-
+console.log(works);
             for( let work of works){
                 const figure = document.createElement('figure');
                 const imgElement = document.createElement('img');
@@ -36,6 +39,33 @@ const fetchWorks = async function (){
 
                 //push category name of each object of works
                 arrCategories.push(work.category.name);
+
+
+             //add works to modified container
+             const cardEl = document.createElement('div');
+             cardEl.classList.add('card');
+             const modImgEl = document.createElement('img');
+             modImgEl.src=work.imageUrl;
+             modImgEl.crossOrigin='anonymous';
+             const editImgEl = document.createElement('h3');
+             editImgEl.innerText='éditer';
+
+            const deletePhotoBtn = document.createElement('button');
+            deletePhotoBtn.classList.add('delete--photo')
+            const trashBtn = document.createElement('i');
+            trashBtn.classList.add('fa-sharp');
+            trashBtn.classList.add('fa-solid');
+            trashBtn.classList.add('fa-trash-can');
+            trashBtn.classList.add('fa-xs');
+
+            
+             deletePhotoBtn.appendChild(trashBtn);
+
+             modifiedCardsContainerEl.appendChild(cardEl);
+             cardEl.appendChild(modImgEl);
+             cardEl.appendChild(editImgEl);
+             cardEl.appendChild(deletePhotoBtn);
+
         }
     }
     // call the function to display the images on the gallery section
@@ -90,6 +120,4 @@ const fetchWorks = async function (){
 
 fetchWorks();
 
-
-
-   
+openCloseModel();

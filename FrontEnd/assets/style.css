@@ -23,6 +23,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 	background-color: #fffef8;
+	
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -48,19 +49,28 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+html{
+	
+	position: relative;
+	margin:0 auto;
+}
 body {
-	max-width: 1140px;
-	margin:auto;
+	margin:0 auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	max-width: 1140px;
+	margin:0 auto;
+	
 }
+
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	padding: 50px;
 }
 section {
-	margin: 50px 0
+	margin: 50px 0;
 }
 
 h1{
@@ -286,3 +296,128 @@ footer nav ul {
 	
 }
 
+.modal{
+	background-color: red;
+	height: fit-content;
+	width: 630px;
+	position: absolute;
+	top: 35rem;
+    left: 31%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: #FFFFFF;
+	border-radius: 10px;
+	z-index: 10;
+	
+}
+
+.close--model{
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	font-size: 1.7rem;
+	cursor: pointer;
+}
+.container{
+  width: 60%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 3rem 0rem;
+  background: #FFFFFF;
+}
+
+.container>h2{
+	font-family: 'Work Sans';
+	font-weight: 700;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+	color: #000000;
+	 background: #FFFFFF;;
+}
+.card{
+	background: #FFFFFF;
+	width: 78px;
+	height: 104px;
+	position: relative;
+	
+}
+.card>img{
+	width: 78px;
+	height: 104px;
+	cursor: move;
+}
+.modified--cards--container{
+	width: 100%;
+	height: fit-content;
+	min-height: 400px;
+	background: #FFFFFF;
+	display: flex;
+	gap: 2rem 1rem;
+	flex-wrap: wrap;
+	padding-bottom: 3rem;
+	border-bottom: 1px solid rgb(58, 52, 52);
+	
+}
+.card>h3 {
+	background: #FFFFFF;
+}
+
+.card>button{
+	background: #FFFFFF;
+	border: 0px solid blue;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	background-color: black;
+	cursor: pointer;
+}
+.card>button>i{
+	color: white;
+	background-color: black;
+}
+
+.btns{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+	
+}
+.btns>button:first-child{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	width: 210px;
+	text-align: center;
+	border-radius: 60px ;
+	padding: 0.7rem 2rem;
+	border: 0px solid;
+	cursor: pointer;
+}
+.btns>button:nth-child(2) {
+	font-family: 'Syne';
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  color: red;
+}
+.overlay{
+    position: absolute;
+	top: 0;
+	left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    /* backdrop-filter: blur(3px); */
+    z-index: 5;
+
+}
