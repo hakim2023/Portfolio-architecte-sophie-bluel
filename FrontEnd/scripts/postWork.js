@@ -10,7 +10,7 @@ export const postWork = async function(){
     let selectedFile = null;
    
     
-    fileInput.addEventListener("change", function(event) {
+      fileInput.addEventListener("change", function(event) {
       selectedFile = event.target.files[0];
 
     const endpoint = "http://localhost:5678/api/works";
@@ -22,7 +22,7 @@ export const postWork = async function(){
     
     async function uploadImage(endpoint, token) {
       const formData = new FormData();
-      formData.append("image", selectedFile, file.name);
+      formData.append("image", selectedFile);
       formData.append("title", photoTitle.value);
       formData.append("category", 2);
     

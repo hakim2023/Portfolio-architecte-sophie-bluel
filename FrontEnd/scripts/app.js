@@ -166,5 +166,3 @@ addPhotoGallery();
 addCategoriesModal();
 
 postWork();
-
-

@@ -37,7 +37,7 @@ closeModal();
 modifyProjectsBtn.addEventListener('click', (e)=>{
     modal.classList.remove('hide');
     overlay.classList.remove('hide');
-    modal.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    modal.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
 })
 
 overlay.addEventListener('click', function(){
