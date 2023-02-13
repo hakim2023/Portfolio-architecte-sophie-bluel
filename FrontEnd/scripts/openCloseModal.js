@@ -1,17 +1,40 @@
 export function openCloseModel(){
-const modifyProjectsBtn = document.querySelector('.modify--projects')     
-const closeModelBtn = document.querySelector('.close--model');
-const modal = document.querySelector('.modal');
-const overlay = document.querySelector('.overlay');
 
-closeModelBtn.addEventListener('click', function(){
+    const overlay = document.querySelector('.overlay');
+    const modal = document.querySelector('.modal');
+    const modifyProjectsBtn = document.querySelector('.modify--projects')     
+    const closeModelBtn = document.querySelector('.close--model');
 
-modal.classList.add('hide');
-overlay.classList.add('hide');
+
+    const  closeModal = function (){
+        const addProjectPhoto = document.querySelector('.submit--project--photo');
+        addProjectPhoto.style.backgroundColor='#A7A7A7';
+        const photoTitle = document.querySelector('#photo--title');
+        photoTitle.value='';
+        const uploadedPhotoPreview = document.querySelector('.uploaded--photo--preview');
+        uploadedPhotoPreview.classList.add('hide');
+        const uploadedPhotoContainer = document.querySelector('.uploaded--photo--container');
+        uploadedPhotoContainer.classList.remove('hide');
+        const uploadedDescription = document.querySelector('.uploaded-photo-description');
+        uploadedDescription.innerText="jpg, png : 4mo max";
+        uploadedDescription.style.color='#444444';
+       
+        modal.classList.add('hide');
+       
+        overlay.classList.add('hide');
+        const firstContainerInModal = document.querySelector('.modal .container');
+        firstContainerInModal.classList.remove('hide');
+        const formContainerInModal = document.querySelector('.add--photo--container')
+        formContainerInModal.classList.add('hide');
+    }
+
+
+closeModelBtn.addEventListener('click', (e)=>{
+
+closeModal();
 })
  
-
-modifyProjectsBtn.addEventListener('click', function(){
+modifyProjectsBtn.addEventListener('click', (e)=>{
     modal.classList.remove('hide');
     overlay.classList.remove('hide');
     modal.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
@@ -19,7 +42,13 @@ modifyProjectsBtn.addEventListener('click', function(){
 
 overlay.addEventListener('click', function(){
 
-    modal.classList.add('hide');
-    overlay.classList.add('hide');
-    })
+    closeModal();
+    });
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape' && (!modal.classList.contains('hide'))){
+                closeModal();
+                }
+            });
 }
+
+

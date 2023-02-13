@@ -66,8 +66,8 @@
 	</section>
 </main>
 <section class="modal hide">
+	<div class="close--model">&times;</div>
 	<div class="container">
-		<div class="close--model">&times;</div>
 		<h2>Galerie Photo</h2>
 		<div class="modified--cards--container">
 			<!-- <div class="card">
@@ -79,6 +79,45 @@
 		<div class="btns">
 			<button class="add--photo">Ajouter une photo</button>
 			<button class="delete--gallery">Supprimer la galerie</button>
+		</div>
+	</div>
+	<div class="add--photo--container hide">
+		<i class="back--btn fa fa-thin fa-arrow-left-long"></i>
+	
+		
+		<h2>Ajout photo</h2>
+		<form class ='add--photo--form' enctype="multipart/form-data">
+
+			<div class="uploaded--photo--container ">
+				<img src = "assets/icons/picture-svgrepo-com1.svg" alt="SVG"/>
+				<input type="file" id="file" name="file" accept="image/png, image/jpeg">
+				<label for="file">+ Ajouter photo</label>
+				<p class="uploaded-photo-description">jpg, png : 4mo max</p>
+			</div>
+			<div class="uploaded--photo--preview hide">
+                  <img src="assets/images/abajour-tahina.png" alt="">
+			</div>
+            <div class="input--container">
+				<label for="photo--title">Titre</label>
+				<input type="text" id="photo--title" name="photo--title">
+			</div>
+
+			<div class="input--container ">
+
+				<label for="category-select">Catégorie</label>
+				<select name="category-select" id="category-select">
+			
+				</select>
+
+			</div>
+
+			<hr>
+
+			<button class = 'submit--project--photo'type="submit"  >Valider</button>
+            
+
+		</form>
+		  
 		</div>
 	</div>
 </section>

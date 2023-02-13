@@ -1,6 +1,11 @@
 'use strict'
 
+import { addPhotoGallery } from "./addPhotoGallery.js";
 import { openCloseModel } from "./openCloseModal.js";
+import { addCategoriesModal } from "./addCategoriesModal.js";
+import { postWork } from "./postWork.js";
+
+
 
 const gallery = document.querySelector('.gallery');
 const categoriesEl = document.querySelector('.categories');
@@ -13,7 +18,7 @@ const modifiedCardsContainerEl =  document.querySelector('.modified--cards--cont
 const arrCategories = [];
 
 let token = window.localStorage.getItem("token");
-let userId = window.localStorage.getItem("userId");
+// let userId = window.localStorage.getItem("userId");
 
 
 // create an async function that fetch work api data from the url
@@ -22,8 +27,8 @@ const fetchWorks = async function (){
     const response = await fetch('http://localhost:5678/api/works');
     const works = await response.json();
    // create a function that generate display into the DOM
-    const generateWork = function(works){
-console.log(works);
+    const generateWork = async function(works){
+    
             for( let work of works){
                 const figure = document.createElement('figure');
                 const imgElement = document.createElement('img');
@@ -50,6 +55,7 @@ console.log(works);
              const editImgEl = document.createElement('h3');
              editImgEl.innerText='éditer';
 
+            //add photos and elements to modal window 
             const deletePhotoBtn = document.createElement('button');
             deletePhotoBtn.classList.add('delete--photo')
             const trashBtn = document.createElement('i');
@@ -66,13 +72,46 @@ console.log(works);
              cardEl.appendChild(editImgEl);
              cardEl.appendChild(deletePhotoBtn);
 
-        }
-    }
+             
+             const deleteWork = async function(){
+           
+                  deletePhotoBtn.addEventListener('click', async (e)=>{
+                   e.preventDefault()
+          
+                 async  function deleteData(event) {
+                 
+                    if (confirm("Are you sure you want to delete this data?")) {
+                      await fetch(`http://localhost:5678/api/works/${work.id}`,{
+          
+                       method: "DELETE",
+                       headers: {
+                      
+                       'Authorization': `Bearer ${token}`
+                       },
+                    
+                           }).then((res) => console.log(res.json()))
+                           .catch((error) => {
+                               console.error('Error:', error);
+                         });
+                         return false;
+                        }
+                      }
+                      deleteData();
+                      return false;
+                 })
+   
+          } 
+
+      deleteWork();
+  }
+
+  
+         }
     // call the function to display the images on the gallery section
 
     if (token) {
         console.log('user connected');
-        console.log(userId);
+       
         generateWork(works)
         const categoryEl = document.querySelector('.category');
         categoryEl.classList.add('hide');
@@ -121,3 +160,11 @@ console.log(works);
 fetchWorks();
 
 openCloseModel();
+
+addPhotoGallery();
+
+addCategoriesModal();
+
+postWork();
+
+
