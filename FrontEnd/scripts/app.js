@@ -89,15 +89,18 @@ const fetchWorks = async function (){
                        'Authorization': `Bearer ${token}`
                        },
                     
-                           }).then((res) => console.log(res.json()))
-                           .catch((error) => {
-                               console.error('Error:', error);
-                         });
-                         return false;
+                           }).then(function(value) {
+                            window.location.reload();
+                           
+                           
+                            
+                           })
+
+                      
                         }
                       }
                       deleteData();
-                      return false;
+                   
                  })
    
           } 
@@ -166,3 +169,12 @@ addPhotoGallery();
 addCategoriesModal();
 
 postWork();
+
+
+window.onload = function() {
+    const inputField = document.querySelectorAll('input');
+
+  inputField.forEach(e => {
+        e.value='';
+    });
+    }
