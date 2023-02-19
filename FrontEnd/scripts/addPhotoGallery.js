@@ -30,7 +30,7 @@ const uploadedDescription = document.querySelector('.uploaded-photo-description'
         if ( fileSize > 4000000) {
        uploadedDescription.innerText="La taille de la photo doit être inférieure à 4 Mo";
        uploadedDescription.style.color='red';
-        }else{
+        }else if (fileSize<4000000 && fileSize>0 ){
             const uploadedImgSrc = URL.createObjectURL(event.target.files[0]);
             const uploadedPhotoPreview = document.querySelector('.uploaded--photo--preview');
             uploadedPhotoPreview.classList.remove('hide');
@@ -41,7 +41,10 @@ const uploadedDescription = document.querySelector('.uploaded-photo-description'
             // console.log(uploadedImgSrc);
             const photoTitle = document.querySelector('#photo--title');
 
-        }      
+        } else if (fileSize<0 )   {
+            uploadedDescription.innerText="ajouter une photo";
+            uploadedDescription.style.color='red';
+        }
             const addProjectPhoto = document.querySelector('.submit--project--photo');
             addProjectPhoto.style.backgroundColor='#1D6154';
       

@@ -299,10 +299,10 @@ footer nav ul {
 .modal{
 	background-color: red;
 	height: fit-content;
-	width: 630px;
+	width: 50vw;
 	position: absolute;
 	top: 35rem;
-    left: 31%;
+    left: 25vw;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -356,6 +356,8 @@ footer nav ul {
 }
 .modified--cards--container{
 	width: 100%;
+	display: flex;
+	/* justify-content: center; */
 	height: fit-content;
 	min-height: 400px;
 	background: #FFFFFF;
