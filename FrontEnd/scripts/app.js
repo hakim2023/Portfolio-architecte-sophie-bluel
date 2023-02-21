@@ -1,8 +1,8 @@
 'use strict'
 
 import { addPhotoGallery } from "./addPhotoGallery.js";
-import { openCloseModel } from "./openCloseModal.js";
-import { addCategoriesModal } from "./addCategoriesModal.js";
+import { openCloseModel , closeModal} from "./openCloseModal.js";
+import { addCategoriesModal  } from "./addCategoriesModal.js";
 // import { postWork } from "./postWork.js";
 
 
@@ -253,7 +253,7 @@ addCategoriesModal();
         
          formData.append("category", (selected.value).slice(-1));
        
-         const response = await fetch(endpoint, {
+         await fetch(endpoint, {
            method: "POST",
            headers: {
              "accept": "application/json",
@@ -292,6 +292,8 @@ addCategoriesModal();
                   figureMod.append(figcaptionMod);
                      
                   deleteWorks();
+                  closeModal();
+                 gallery.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
    
            }else if(photoTitle.value === ''){
    
