@@ -214,10 +214,6 @@ addCategoriesModal();
 
 
 
-
-
-
-
     //--------------------------------------------//
 
     
@@ -232,71 +228,89 @@ addCategoriesModal();
     let selectedFile = null;
    
     fileInput.addEventListener("change", function(event) {
-        const uploadedDescription = document.querySelector('.uploaded-photo-description');
+        // const uploadedDescription = document.querySelector('.uploaded-photo-description');
         const uploadedImgSrc = URL.createObjectURL(event.target.files[0]);
         const endpoint = "http://localhost:5678/api/works";
         const photoTitle = document.querySelector('#photo--title');
         const photoTitleDescription = document.querySelector('.input--container>p')
         // console.log((selected.value).slice(-1));
-      
+        const fileSize = fileInput.files.item(0).size;
 
     addProjectPhoto.disabled=false;
  
     selectedFile = event.target.files[0];
  
     form.addEventListener('submit', async (event) => {
-      window.event.returnValue = false;
+      // window.event.returnValue = false;
       event.preventDefault();
-     
-    async function uploadImage(endpoint, token) {
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-      formData.append("title", photoTitle.value);
-     
-      formData.append("category", (selected.value).slice(-1));
-    
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "accept": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: formData
-      }).then(function(resp){
-        if(resp.ok){
-
-            fileInput.value='';
-              selectedFile = null;
-
-              addProjectPhoto.disabled=true;
-              addProjectPhoto.style.backgroundColor=' #A7A7A7';
-              photoTitleDescription.innerText='';
-              modifiedCardsContainerEl.innerHTML='';
-              deleteWorks();
-              
-              const addPhotoBtn = document.querySelector('.add--photo');
-              addPhotoBtn.disabled=true;
-              addPhotoBtn.style.backgroundColor=' #A7A7A7';
-              const firstContainerInModal = document.querySelector('.modal .container');
-             const formContainerInModal = document.querySelector('.add--photo--container')
-               firstContainerInModal.classList.remove('hide');
-               formContainerInModal.classList.add('hide');
-
-        }else if(photoTitle.value === ''){
-
-             photoTitleDescription.innerText='ajouter un titre' 
-             photoTitleDescription.style.color='red'
-            
-        }
-
-      });
-      
-    }
-    uploadImage(endpoint,token)
+     const photoTitleMod = photoTitle.value;
+     if (fileSize < 4000000){
  
-    form.reset();
-    event.preventDefault();
-    return false;
+       async function uploadImage(endpoint, token) {
+         const formData = new FormData();
+         formData.append("image", selectedFile);
+         formData.append("title", photoTitle.value);
+        
+         formData.append("category", (selected.value).slice(-1));
+       
+         const response = await fetch(endpoint, {
+           method: "POST",
+           headers: {
+             "accept": "application/json",
+             "Authorization": `Bearer ${token}`
+           },
+           body: formData
+         }).then(function(resp){
+           console.log(resp);
+           if(resp.ok ){
+       
+         
+                 selectedFile = null;
+   
+                 addProjectPhoto.disabled=true;
+                 addProjectPhoto.style.backgroundColor=' #A7A7A7';
+                 photoTitleDescription.innerText='';
+                 modifiedCardsContainerEl.innerHTML='';
+             
+                 
+                 const addPhotoBtn = document.querySelector('.add--photo');
+                 addPhotoBtn.disabled=true;
+                 addPhotoBtn.style.backgroundColor=' #A7A7A7';
+                 const firstContainerInModal = document.querySelector('.modal .container');
+                 const formContainerInModal = document.querySelector('.add--photo--container')
+                  firstContainerInModal.classList.remove('hide');
+                  formContainerInModal.classList.add('hide');
+                  const figureMod = document.createElement('figure');
+                  const imgMod = document.createElement('img');
+                  imgMod.src=  uploadedImgSrc;
+                 //  imgElement.crossOrigin='anonymous';
+                  const figcaptionMod = document.createElement('figcaption');
+                  figcaptionMod.innerHTML=photoTitleMod;
+                
+                  gallery.appendChild(figureMod);
+                  figureMod.append(imgMod);
+                  figureMod.append(figcaptionMod);
+                     
+                  deleteWorks();
+   
+           }else if(photoTitle.value === ''){
+   
+                photoTitleDescription.innerText='ajouter un titre' 
+                photoTitleDescription.style.color='red'
+               
+           }else if (!resp.ok){
+             // console.log('error');
+           }
+   
+         });
+         
+       }
+       uploadImage(endpoint,token)
+       form.reset();
+       event.preventDefault();
+       return false;
+     }
+ 
     });
      
 

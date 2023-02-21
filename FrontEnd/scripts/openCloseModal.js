@@ -26,6 +26,18 @@ export function openCloseModel(){
         firstContainerInModal.classList.remove('hide');
         const formContainerInModal = document.querySelector('.add--photo--container')
         formContainerInModal.classList.add('hide');
+        const form = document.querySelector('.add--photo--form');
+        const fileInput = document.querySelector('#file');
+
+        fileInput.addEventListener("change", function(event) {
+           let selectedFile = event.target.files[0];
+
+            form.reset();
+            selectedFile = null;
+        });
+
+
+      
     }
 
 

@@ -201,6 +201,7 @@ nav>ul>li>a{
 .gallery img {
 	width: 100%;
 	height: 500px;
+	object-fit:fill;
 }
 #contact {
 	width: 50%;
