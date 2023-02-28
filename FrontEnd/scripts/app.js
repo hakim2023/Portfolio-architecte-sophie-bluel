@@ -18,7 +18,7 @@ const addProjectPhoto = document.querySelector('.submit--project--photo');
 const form = document.querySelector('.add--photo--form');
 //create an empty array that we'll psuh into category names from fetched works api 
 const arrCategories = [];
-addProjectPhoto.disabled=true;
+// addProjectPhoto.disabled=true;
 let token = window.localStorage.getItem("token");
 // let userId = window.localStorage.getItem("userId");
 
@@ -37,6 +37,8 @@ const fetchWorks = async function (){
                 const figcaption = document.createElement('figcaption');
                  
                 figure.setAttribute('data-id',work.id)
+                figure.setAttribute('id',`figure--id--${work.id}`)
+
                 imgElement.src=work.imageUrl;
                 imgElement.crossOrigin='anonymous';
                 figcaption.innerText=work.title;
@@ -48,13 +50,10 @@ const fetchWorks = async function (){
 
                 //push category name of each object of works
                 arrCategories.push(work.category.name);
-
-
       
   }
 
-  
-         }
+}
     // call the function to display the images on the gallery section
 
     if (token) {
@@ -117,7 +116,7 @@ const deleteWorks = async function (){
     
             for( let work of photos){
      
-                const figure = document.querySelector('figure')
+             const figureMod = document.querySelectorAll('.gallery>figure')
              //add works to modified container
              const cardEl = document.createElement('div');
              cardEl.classList.add('card');
@@ -148,29 +147,28 @@ const deleteWorks = async function (){
 
              
              const deletePhoto = async function(){
-           
-                  deletePhotoBtn.addEventListener('click', async (e)=>{
-                   e.preventDefault()
-                   try {
-                 async  function deleteData(event) {
-                   
-                    if (confirm("Are you sure you want to delete this photo?")) {
-                      // e.preventDefault()
-                      await fetch(`http://localhost:5678/api/works/${work.id}`,{
-                        
-                       method: "DELETE",
-                       headers: {
-                      
-                       'Authorization': `Bearer ${token}`
-                       },
-                    
-                           }).then(function(value) {
+               
+               deletePhotoBtn.addEventListener('click', async (e)=>{
+                 e.preventDefault()
+                 try {
+                   async  function deleteData(event) {
+                     
+                     if (confirm("Are you sure you want to delete this photo?")) {
+                       // e.preventDefault()
+                       await fetch(`http://localhost:5678/api/works/${work.id}`,{
+                         
+                         method: "DELETE",
+                         headers: {
+                           
+                           'Authorization': `Bearer ${token}`
+                          },
                           
-                            cardEl.remove();
-                            gallery.innerHTML='';
-                           fetchWorks();
-                           console.log(value);
-                        return false;
+                        }).then(function(value) {
+                          // console.log(cardEl.dataset.id);
+                          cardEl.remove();
+                          const figureId = document.getElementById(`figure--id--${cardEl.dataset.id}`)
+                          figureId.remove();
+                          return false;
                            });
 
                         }
@@ -182,7 +180,7 @@ const deleteWorks = async function (){
                     }catch (error){
                       console.error(error);
                     }
-                  
+                    
                  })
                 
           } 
@@ -216,35 +214,59 @@ addCategoriesModal();
 
     //--------------------------------------------//
 
+
+
     
 
  const postWork = async function(){
-    const form = document.querySelector('.add--photo--form');
+  const uploadedDescription = document.querySelector('.uploaded-photo-description');
+
+    // const form = document.querySelector('.add--photo--form');
     const fileInput = document.querySelector('#file');
     // const file = fileInput.files[0];
 
     const selected = document.querySelector('select');
 
     let selectedFile = null;
-   
+  
+    const endpoint = "http://localhost:5678/api/works";
+    const photoTitle = document.querySelector('#photo--title');
+    let uploadedImgSrc;
+    let fileSize;
+    const photoTitleDescription = document.querySelector('.input--container>p')
+    photoTitleDescription.style.color='red'
+    const photoSelectDescription = document.querySelector('.select--container>p')
+    photoSelectDescription.style.color='red'
     fileInput.addEventListener("change", function(event) {
         // const uploadedDescription = document.querySelector('.uploaded-photo-description');
-        const uploadedImgSrc = URL.createObjectURL(event.target.files[0]);
-        const endpoint = "http://localhost:5678/api/works";
-        const photoTitle = document.querySelector('#photo--title');
-        const photoTitleDescription = document.querySelector('.input--container>p')
-        // console.log((selected.value).slice(-1));
-        const fileSize = fileInput.files.item(0).size;
+         uploadedImgSrc = URL.createObjectURL(event.target.files[0]);
 
-    addProjectPhoto.disabled=false;
+         fileSize = fileInput.files.item(0).size;
+
+         selectedFile = event.target.files[0];
+      //  addProjectPhoto.disabled=false;
+    });
  
-    selectedFile = event.target.files[0];
- 
+
     form.addEventListener('submit', async (event) => {
-      // window.event.returnValue = false;
+
       event.preventDefault();
-     const photoTitleMod = photoTitle.value;
-     if (fileSize < 4000000){
+      uploadedDescription.innerText='ajouter une photo'
+      uploadedDescription.style.color='red';
+      if(selected.value ==  0 &&  photoTitle.value ==  ''){
+        photoSelectDescription.innerText ='choisir une catégorie' ;
+        photoTitleDescription.innerText ='choisir une titre'
+
+      }
+       else if (selected.value ==  0 ){
+        photoSelectDescription.innerText ='choisir une catégorie' 
+        photoTitleDescription.innerText =''
+      }else if( photoTitle.value ==  '') {
+        photoTitleDescription.innerText ='choisir une titre' 
+        photoSelectDescription.innerText ='' 
+      }
+   
+     if (fileSize < 4000000 ){
  
        async function uploadImage(endpoint, token) {
          const formData = new FormData();
@@ -261,62 +283,65 @@ addCategoriesModal();
            },
            body: formData
          }).then(function(resp){
-           console.log(resp);
-           if(resp.ok ){
+         console.log(resp);
+           if(resp.ok){
        
-         
                  selectedFile = null;
-   
-                 addProjectPhoto.disabled=true;
-                 addProjectPhoto.style.backgroundColor=' #A7A7A7';
-                 photoTitleDescription.innerText='';
-                 modifiedCardsContainerEl.innerHTML='';
-             
-                 
-                 const addPhotoBtn = document.querySelector('.add--photo');
-                 addPhotoBtn.disabled=true;
-                 addPhotoBtn.style.backgroundColor=' #A7A7A7';
                  const firstContainerInModal = document.querySelector('.modal .container');
                  const formContainerInModal = document.querySelector('.add--photo--container')
                   firstContainerInModal.classList.remove('hide');
                   formContainerInModal.classList.add('hide');
-                  const figureMod = document.createElement('figure');
-                  const imgMod = document.createElement('img');
-                  imgMod.src=  uploadedImgSrc;
-                 //  imgElement.crossOrigin='anonymous';
-                  const figcaptionMod = document.createElement('figcaption');
-                  figcaptionMod.innerHTML=photoTitleMod;
-                
-                  gallery.appendChild(figureMod);
-                  figureMod.append(imgMod);
-                  figureMod.append(figcaptionMod);
-                     
-                  deleteWorks();
-                  closeModal();
-                 gallery.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-   
-           }else if(photoTitle.value === ''){
-   
-                photoTitleDescription.innerText='ajouter un titre' 
-                photoTitleDescription.style.color='red'
-               
-           }else if (!resp.ok){
-             // console.log('error');
+                  const uploadedPhotoPreview = document.querySelector('.uploaded--photo--preview');
+                  uploadedPhotoPreview.classList.add('hide');
+                  const uploadedPhotoContainer = document.querySelector('.uploaded--photo--container');
+                  uploadedPhotoContainer.classList.remove('hide');
+
+                   gallery.innerHTML='';
+                   modifiedCardsContainerEl.innerHTML='';
+                   form.reset(); 
+                   fetchWorks();
+                   closeModal();
+                   deleteWorks();
+                   gallery.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+                  //  addProjectPhoto.disabled=true;
            }
-   
+
+           else if (!resp.ok){
+                if(selected.value ==  0 &&  photoTitle.value ==  ''){
+                  photoSelectDescription.innerText ='choisir une catégorie' ;
+                  photoTitleDescription.innerText ='choisir une titre'
+
+                }
+                 else if (selected.value ==  0 ){
+                  photoSelectDescription.innerText ='choisir une catégorie' 
+                  photoTitleDescription.innerText =''
+                }else if( photoTitle.value ==  '') {
+                  photoTitleDescription.innerText ='choisir une titre' 
+                  photoSelectDescription.innerText ='' 
+                }
+              // selected.value ==  0 ? photoSelectDescription.innerText ='choisir une catégorie'  :  photoSelectDescription.innerText = '';
+              // photoTitle.value ==  '' ? photoTitleDescription.innerText ='choisir une titre'  :  photoTitleDescription.innerText = '';
+           
+          }
          });
          
+         
+      
        }
        uploadImage(endpoint,token)
-       form.reset();
+      //  form.reset();
        event.preventDefault();
+       photoTitleDescription.innerText ='' 
+       photoSelectDescription.innerText ='' ;
        return false;
      }
- 
-    });
      
+     selectedFile = null;
+   
+    });
+  
+    
 
- });
 
 }
 postWork();

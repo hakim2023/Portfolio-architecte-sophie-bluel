@@ -86,7 +86,7 @@
 	
 		
 		<h2>Ajout photo</h2>
-		<form class ='add--photo--form' action="#" method ='POST' nctype="multipart/form-data">
+		<form class ='add--photo--form'  nctype="multipart/form-data">
 
 			<div class="uploaded--photo--container ">
 				<img src = "assets/icons/picture-svgrepo-com1.svg" alt="SVG"/>
@@ -103,13 +103,13 @@
 				<p></p>
 			</div>
 
-			<div class="input--container ">
+			<div class="input--container select--container">
 
 				<label for="category-select">Catégorie</label>
 				<select name="category-select" id="category-select">
-			
+			       <option value="0">---- Choisir une catégorie ----</option>
 				</select>
-
+                <p></p>
 			</div>
 
 			<hr>

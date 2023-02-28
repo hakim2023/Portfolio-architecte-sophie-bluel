@@ -1,8 +1,7 @@
 export const  closeModal = function (){
     const overlay = document.querySelector('.overlay');
     const modal = document.querySelector('.modal');
-    const modifyProjectsBtn = document.querySelector('.modify--projects')     
-    const closeModelBtn = document.querySelector('.close--model');
+   
 
 
     const addProjectPhoto = document.querySelector('.submit--project--photo');
@@ -10,9 +9,9 @@ export const  closeModal = function (){
     const photoTitle = document.querySelector('#photo--title');
     photoTitle.value='';
     const uploadedPhotoPreview = document.querySelector('.uploaded--photo--preview');
-    uploadedPhotoPreview.classList.add('hide');
+    // uploadedPhotoPreview.classList.add('hide');
     const uploadedPhotoContainer = document.querySelector('.uploaded--photo--container');
-    uploadedPhotoContainer.classList.remove('hide');
+    // uploadedPhotoContainer.classList.remove('hide');
     const uploadedDescription = document.querySelector('.uploaded-photo-description');
     uploadedDescription.innerText="jpg, png : 4mo max";
     uploadedDescription.style.color='#444444';
@@ -26,14 +25,22 @@ export const  closeModal = function (){
     formContainerInModal.classList.add('hide');
     const form = document.querySelector('.add--photo--form');
     const fileInput = document.querySelector('#file');
-
+    let selectedFile;
     fileInput.addEventListener("change", function(event) {
-       let selectedFile = event.target.files[0];
-
+       selectedFile = event.target.files[0];
+   
         form.reset();
         selectedFile = null;
     });
-
+if(selectedFile){
+    uploadedPhotoContainer.classList.add('hide');
+    uploadedPhotoPreview.classList.remove('hide');
+    
+}
+        const photoTitleDescription = document.querySelector('.input--container>p')
+        photoTitleDescription.innerHTML="";
+        const photoSelectDescription = document.querySelector('.select--container>p')
+        photoSelectDescription.innerHTML="";
 
   
 }
