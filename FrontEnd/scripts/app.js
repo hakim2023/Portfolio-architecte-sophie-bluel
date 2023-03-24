@@ -3,8 +3,6 @@
 import { addPhotoGallery } from "./addPhotoGallery.js";
 import { openCloseModel , closeModal} from "./openCloseModal.js";
 import { addCategoriesModal  } from "./addCategoriesModal.js";
-// import { postWork } from "./postWork.js";
-
 
 
 const gallery = document.querySelector('.gallery');
@@ -18,7 +16,7 @@ const addProjectPhoto = document.querySelector('.submit--project--photo');
 const form = document.querySelector('.add--photo--form');
 //create an empty array that we'll psuh into category names from fetched works api 
 const arrCategories = [];
-// addProjectPhoto.disabled=true;
+
 let token = window.localStorage.getItem("token");
 // let userId = window.localStorage.getItem("userId");
 
@@ -43,21 +41,20 @@ const fetchWorks = async function (){
                 imgElement.crossOrigin='anonymous';
                 figcaption.innerText=work.title;
 
-                // gallery.innerHTML = '';
                 gallery.appendChild(figure);
                 figure.appendChild(imgElement);
                 figure.appendChild(figcaption);  
 
-                //push category name of each object of works
+
                 arrCategories.push(work.category.name);
       
   }
 
 }
-    // call the function to display the images on the gallery section
+    // call the function to display the images on the gallery section 
 
     if (token) {
-        console.log('user connected');
+        // console.log('user connected');
        
         generateWork(works)
         const categoryEl = document.querySelector('.category');
@@ -212,7 +209,7 @@ addCategoriesModal();
 
 
 
-    //--------------------------------------------//
+ //--------------------------------------------//
 
 
 
